@@ -1,4 +1,4 @@
-package commaciejprogramuje.facebook.timetablevulcan;
+package commaciejprogramuje.facebook.timetablevulcan.screens;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,8 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import commaciejprogramuje.facebook.timetablevulcan.R;
 
+public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
