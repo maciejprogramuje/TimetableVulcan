@@ -19,7 +19,7 @@ public class App extends Application {
         linkToFavouriveTimetable = sharedPreferences.getString(LINK_TO_FAVOURIVE_TIMETABLE, "");
     }
 
-    public void setSharedPreferencesLinkToFavouriveTimetable(String string) {
+    public void setLinkToFavouriveTimetableToSharedPreferences(String string) {
         sharedPreferences.edit()
                 .putString(LINK_TO_FAVOURIVE_TIMETABLE, string)
                 .apply();
