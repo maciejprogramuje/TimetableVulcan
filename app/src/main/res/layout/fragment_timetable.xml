@@ -17,14 +17,19 @@
             android:scrollbars="horizontal|vertical"
             android:layout_width="wrap_content">
 
-            <TableLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="timetable details"/>
+
+            <!--<TableLayout
                 android:id="@+id/tableLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:stretchColumns="*"
 
                 android:padding="5dp"
-                android:showDividers="middle"/>
+                android:showDividers="middle"/>-->
         </HorizontalScrollView>
 
     </ScrollView>
