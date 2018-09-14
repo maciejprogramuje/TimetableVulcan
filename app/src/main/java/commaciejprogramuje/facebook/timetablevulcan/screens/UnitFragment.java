@@ -14,9 +14,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.R;
+import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 public class UnitFragment extends Fragment {
     Unbinder unbinder;
+    private View view;
 
     public UnitFragment() {
         // Required empty public constructor
@@ -41,7 +43,7 @@ public class UnitFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_unit, container, false);
+        view = inflater.inflate(R.layout.fragment_unit, container, false);
 
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -56,5 +58,6 @@ public class UnitFragment extends Fragment {
     @OnClick(R.id.button_ulit_details)
     public void onViewClicked() {
         Log.w("UWAGA", "button_ulit_details clicked!");
+        Utils.changeFragment(view.getContext(), TimetableFragment.newInstance());
     }
 }

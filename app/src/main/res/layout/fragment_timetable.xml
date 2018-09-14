@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:stretchColumns="*"
-                android:divider="@drawable/table_divider"
+
                 android:padding="5dp"
                 android:showDividers="middle"/>
         </HorizontalScrollView>
@@ -30,3 +30,5 @@
     </ScrollView>
 
 </LinearLayout>
+
+    <!--android:divider="@drawable/table_divider"-->

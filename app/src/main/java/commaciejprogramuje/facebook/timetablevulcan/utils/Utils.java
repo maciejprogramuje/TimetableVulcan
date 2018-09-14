@@ -39,9 +39,9 @@ public class Utils {
         return con_manager.getActiveNetworkInfo() != null;
     }
 
-    public static void changeFragment(AppCompatActivity context, Fragment newFragment) {
+    public static void changeFragment(Context context, Fragment newFragment) {
         if (isInternetConnection(context)) {
-            FragmentTransaction transaction = (context).getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
