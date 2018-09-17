@@ -1,4 +1,4 @@
-package commaciejprogramuje.facebook.timetablevulcan.screens;
+package commaciejprogramuje.facebook.timetablevulcan.screens.timetable;
 
 
 import android.os.Bundle;
