@@ -37,3 +37,7 @@ public class App extends Application {
         return sharedPreferences;
     }
 }
+
+// https://www.flaticon.com
+// Place the attribution on the credits/description page of the application.
+// Icon made by Freepik from www.flaticon.com
