@@ -10,11 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
-import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
-import commaciejprogramuje.facebook.timetablevulcan.screens.classroom.ClassroomFragment;
-import commaciejprogramuje.facebook.timetablevulcan.screens.teacher.TeacherFragment;
-import commaciejprogramuje.facebook.timetablevulcan.screens.unit.UnitFragment;
+import commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base.ChooseTimetableFragment;
 import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,20 +31,20 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_unit:
-                        changeFragmentInMainActivity(UnitFragment.newInstance());
+                        changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
                         return true;
                     case R.id.navigation_class:
-                        changeFragmentInMainActivity(ClassroomFragment.newInstance());
+                        changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("s"));
                         return true;
                     case R.id.navigation_teacher:
-                        changeFragmentInMainActivity(TeacherFragment.newInstance());
+                        changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("n"));
                         return true;
                 }
                 return false;
             }
         });
 
-        changeFragmentInMainActivity(UnitFragment.newInstance());
+        changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
     }
 
     private void changeFragmentInMainActivity(Fragment fragment) {

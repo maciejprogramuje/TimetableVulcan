@@ -1,12 +1,10 @@
 package commaciejprogramuje.facebook.timetablevulcan.screens.timetable;
 
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +19,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -29,8 +26,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.R;
-import commaciejprogramuje.facebook.timetablevulcan.screens.MainActivity;
-import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 
 public class TimetableFragment extends Fragment {
@@ -85,7 +80,7 @@ public class TimetableFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                (Objects.requireNonNull(getActivity())).onBackPressed();
+                (getActivity()).onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);

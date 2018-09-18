@@ -11,19 +11,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
-import commaciejprogramuje.facebook.timetablevulcan.screens.MainActivity;
 import commaciejprogramuje.facebook.timetablevulcan.screens.timetable.TimetableStatic;
-import commaciejprogramuje.facebook.timetablevulcan.screens.unit.UnitFragment;
 
-public abstract class ChooseTimetableFragment extends Fragment {
+public class ChooseTimetableFragment extends Fragment {
+    public static final String LETTER = "letter";
     Unbinder unbinder;
     @BindView(R.id.unit_recycler_view)
     RecyclerView unitRecyclerView;
@@ -32,15 +39,16 @@ public abstract class ChooseTimetableFragment extends Fragment {
     private App app;
     protected List<Link> linksToTimetable;
     protected String baseUrl;
+    protected String letter;
 
     public ChooseTimetableFragment() {
         // Required empty public constructor
     }
 
-    public static UnitFragment newInstance() {
-        UnitFragment fragment = new UnitFragment();
+    public static <T> ChooseTimetableFragment newInstance(String letter) {
+        ChooseTimetableFragment fragment = new ChooseTimetableFragment();
         Bundle args = new Bundle();
-        //args.putString(TEXT_TO_TIMETABLE, textToTimetable);
+        args.putString(LETTER, letter);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +58,7 @@ public abstract class ChooseTimetableFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            //this.simpleName = arguments.getString(SIMPLE_NAME);
+            this.letter = arguments.getString(LETTER);
         }
     }
 
@@ -93,5 +101,21 @@ public abstract class ChooseTimetableFragment extends Fragment {
         unbinder.unbind();
     }
 
-    public abstract void fillLinksToTimetables();
+    public void fillLinksToTimetables() {
+        Document document = null;
+        try {
+            document = Jsoup.connect(baseUrl + "lista.html").get();
+            Elements elements = document.select("a");
+            for (Element element : elements) {
+                String tempLink = baseUrl + element.attr("href");
+                Pattern pattern = Pattern.compile("plany/" + letter + "\\d+" + "\\.html");
+                Matcher matcher = pattern.matcher(tempLink);
+                if (matcher.find()) {
+                    linksToTimetable.add(new Link(element.text(), tempLink));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
