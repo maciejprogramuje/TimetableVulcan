@@ -18,8 +18,6 @@ import commaciejprogramuje.facebook.timetablevulcan.screens.unit.UnitFragment;
 import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
-    App app;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        app = (App) getApplication();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

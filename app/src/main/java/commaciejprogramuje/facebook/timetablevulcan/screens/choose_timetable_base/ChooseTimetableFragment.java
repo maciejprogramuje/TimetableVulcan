@@ -20,6 +20,7 @@ import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
 import commaciejprogramuje.facebook.timetablevulcan.screens.MainActivity;
+import commaciejprogramuje.facebook.timetablevulcan.screens.timetable.TimetableStatic;
 import commaciejprogramuje.facebook.timetablevulcan.screens.unit.UnitFragment;
 
 public abstract class ChooseTimetableFragment extends Fragment {
@@ -75,15 +76,15 @@ public abstract class ChooseTimetableFragment extends Fragment {
         unitRecyclerView.setHasFixedSize(true);
         unitRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         unitRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        unitRecyclerView.setAdapter(new ChooseTimetableAdapter(app, linksToTimetable, this.getClass().getName()));
+        unitRecyclerView.setAdapter(new ChooseTimetableAdapter(app, linksToTimetable));
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        android.support.v7.app.ActionBar supportActionBar = ((MainActivity) getActivity()).getSupportActionBar();
-        supportActionBar.setDisplayHomeAsUpEnabled(false);
+        TimetableStatic.hideBackArrow(getContext());
+        TimetableStatic.setTitleBarText(getActivity(), getString(R.string.app_name));
     }
 
     @Override

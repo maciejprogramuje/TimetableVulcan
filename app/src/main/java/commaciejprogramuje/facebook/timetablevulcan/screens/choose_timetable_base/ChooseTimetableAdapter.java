@@ -19,12 +19,10 @@ import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetableAdapter.ChooseAdapterHolder> {
     private App app;
     private List<Link> linksToTimetable;
-    private String className;
 
-    ChooseTimetableAdapter(App app, List<Link> linksToTimetable, String className) {
+    ChooseTimetableAdapter(App app, List<Link> linksToTimetable) {
         this.app = app;
         this.linksToTimetable = linksToTimetable;
-        this.className = className;
     }
 
     @NonNull
@@ -42,7 +40,7 @@ public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetable
                     TextView urlToTimetableTextView = v.findViewById(R.id.url_to_timetable_textview);
                     String ulrToTimetable = urlToTimetableTextView.getText().toString();
 
-                    Utils.changeFragment(view.getContext(), TimetableFragment.newInstance(textToTimetable, ulrToTimetable, className));
+                    Utils.changeFragment(view.getContext(), TimetableFragment.newInstance(textToTimetable, ulrToTimetable));
                 } else {
                     //Snackbars.noInternetSnackbar(v);
                 }

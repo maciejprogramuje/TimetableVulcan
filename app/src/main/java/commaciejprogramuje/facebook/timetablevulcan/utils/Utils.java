@@ -24,28 +24,6 @@ import commaciejprogramuje.facebook.timetablevulcan.R;
 import commaciejprogramuje.facebook.timetablevulcan.screens.MainActivity;
 
 public class Utils {
-    /*public static void setArrowInFragment(Activity activity, String simpleName) {
-        ((MainActivity) Objects.requireNonNull(activity)).setHomeArrowOnToolbar(activity, simpleName);
-    }
-
-    public static void setTitleBarText(Activity activity, String name) {
-        Objects.requireNonNull(((MainActivity) activity).getSupportActionBar()).setTitle(name);
-    }*/
-
-    public static String cleanHtmlText(String text) {
-        Document document = Jsoup.parse(text);
-        document.outputSettings(new Document.OutputSettings().prettyPrint(false));//makes html() preserve linebreaks and spacing
-        document.select("br").append("\\n");
-        document.select("p").prepend("\\n\\n");
-        String s = document.html().replaceAll("\\\\n", "\n");
-        String processedText = Jsoup.clean(s, "", whitelist().none(), new Document.OutputSettings().prettyPrint(false));
-        return processedText.replaceAll("&nbsp;", " ");
-    }
-
-    private static Whitelist whitelist() {
-        return new Whitelist().addTags("b", "i", "u",  "ul", "li", "ol", "p", "cite", "sub", "sup", "strike",  "strong", "small", "pre");
-    }
-
     public static boolean isInternetConnection(Context context) {
         ConnectivityManager con_manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert con_manager != null;

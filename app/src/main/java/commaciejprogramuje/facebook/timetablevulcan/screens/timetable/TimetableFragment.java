@@ -21,6 +21,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -44,19 +45,17 @@ public class TimetableFragment extends Fragment {
 
     private String linkToTimetable;
     private String textToTimetable;
-    private String simpleName;
     private ArrayList<RowInput> tableOutput;
 
     public TimetableFragment() {
         // Required empty public constructor
     }
 
-    public static TimetableFragment newInstance(String textToTimetable, String linkToTimetable, String sipmleName) {
+    public static TimetableFragment newInstance(String textToTimetable, String linkToTimetable) {
         TimetableFragment fragment = new TimetableFragment();
         Bundle args = new Bundle();
         args.putString(TEXT_TO_TIMETABLE, textToTimetable);
         args.putString(LINK_TO_TIMETABLE, linkToTimetable);
-        args.putString(SIMPLE_NAME, sipmleName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,7 +67,6 @@ public class TimetableFragment extends Fragment {
         if (arguments != null) {
             this.textToTimetable = arguments.getString(TEXT_TO_TIMETABLE);
             this.linkToTimetable = arguments.getString(LINK_TO_TIMETABLE);
-            this.simpleName = arguments.getString(SIMPLE_NAME);
         }
 
         setHasOptionsMenu(true);
@@ -78,8 +76,8 @@ public class TimetableFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        android.support.v7.app.ActionBar supportActionBar = ((MainActivity) getActivity()).getSupportActionBar();
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        TimetableStatic.showBackArrow(getContext());
+        TimetableStatic.setTitleBarText(getActivity(), textToTimetable);
     }
 
 
@@ -87,8 +85,7 @@ public class TimetableFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                Log.w("UWAGA", "home clicked!");
-                (getActivity()).onBackPressed();
+                (Objects.requireNonNull(getActivity())).onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);
