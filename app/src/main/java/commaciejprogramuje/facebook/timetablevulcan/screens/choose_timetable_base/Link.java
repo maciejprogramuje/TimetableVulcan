@@ -4,7 +4,7 @@ public class Link {
     private String text;
     private String linkToTimetable;
 
-    public Link(String text, String linkToTimetable) {
+    Link(String text, String linkToTimetable) {
         this.text = text;
         this.linkToTimetable = linkToTimetable;
     }

@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_unit"
         android:icon="@drawable/ic_unit"
-        android:title="Unit" />
+        android:title="@string/unit" />
 
     <item
         android:id="@+id/navigation_class"
         android:icon="@drawable/ic_classroom"
-        android:title="Class" />
+        android:title="@string/classroom" />
 
     <item
         android:id="@+id/navigation_teacher"
         android:icon="@drawable/ic_teacher"
-        android:title="Teacher" />
+        android:title="@string/teacher" />
 
 </menu>

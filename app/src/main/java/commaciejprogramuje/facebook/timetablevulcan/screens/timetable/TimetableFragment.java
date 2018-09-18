@@ -31,7 +31,6 @@ import commaciejprogramuje.facebook.timetablevulcan.R;
 public class TimetableFragment extends Fragment {
     public static final String LINK_TO_TIMETABLE = "linkToTimetable";
     public static final String TEXT_TO_TIMETABLE = "textToTimetable";
-    public static final String SIMPLE_NAME = "simpleName";
 
     Unbinder unbinder;
     @BindView(R.id.tableLayout)
@@ -80,7 +79,7 @@ public class TimetableFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                (getActivity()).onBackPressed();
+                (Objects.requireNonNull(getActivity())).onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);

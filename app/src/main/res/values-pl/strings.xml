@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Plan lekcj Vulcan2</string>
+    <string name="unit">Klasa</string>
+    <string name="classroom">Sala</string>
+    <string name="teacher">Nauczyciel</string>
+
+</resources>

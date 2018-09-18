@@ -35,7 +35,6 @@ public class ChooseTimetableFragment extends Fragment {
     @BindView(R.id.unit_recycler_view)
     RecyclerView unitRecyclerView;
 
-    private View view;
     private App app;
     protected List<Link> linksToTimetable;
     protected String baseUrl;
@@ -45,7 +44,7 @@ public class ChooseTimetableFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static <T> ChooseTimetableFragment newInstance(String letter) {
+    public static ChooseTimetableFragment newInstance(String letter) {
         ChooseTimetableFragment fragment = new ChooseTimetableFragment();
         Bundle args = new Bundle();
         args.putString(LETTER, letter);
@@ -64,7 +63,7 @@ public class ChooseTimetableFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_choose_timetable, container, false);
+        View view = inflater.inflate(R.layout.fragment_choose_timetable, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         app = (App) view.getContext().getApplicationContext();
