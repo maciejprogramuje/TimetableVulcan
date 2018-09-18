@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
 import commaciejprogramuje.facebook.timetablevulcan.screens.data_from_web.Link;
+import commaciejprogramuje.facebook.timetablevulcan.screens.timetable.TimetableFragment;
 import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitAdapterHolder> {
@@ -42,7 +43,7 @@ class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitAdapterHolder> {
                     TextView urlToTimetableTextView = v.findViewById(R.id.url_to_timetable_textview);
                     String ulrToTimetable = urlToTimetableTextView.getText().toString();
 
-                    //Views.changeFragment(view.getContext(), PaderewskiTimetableFragment.newInstance(textToTimetable, ulrToTimetable, className));
+                    Utils.changeFragment(view.getContext(), TimetableFragment.newInstance(textToTimetable, ulrToTimetable, className));
                 } else {
                     //Snackbars.noInternetSnackbar(v);
                 }

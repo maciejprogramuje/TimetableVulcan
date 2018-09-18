@@ -89,7 +89,7 @@ public class UnitFragment extends Fragment {
             e.printStackTrace();
         }
 
-        //unitRecyclerView.setHasFixedSize(true);
+        unitRecyclerView.setHasFixedSize(true);
         unitRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         unitRecyclerView.setItemAnimator(new DefaultItemAnimator());
         unitRecyclerView.setAdapter(new UnitAdapter(app, linksToTimetable, this.getClass().getName()));
