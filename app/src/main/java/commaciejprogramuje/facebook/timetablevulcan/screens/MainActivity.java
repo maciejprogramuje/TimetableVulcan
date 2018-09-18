@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import butterknife.ButterKnife;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
 import commaciejprogramuje.facebook.timetablevulcan.screens.classroom.ClassroomFragment;
@@ -19,10 +20,12 @@ import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 public class MainActivity extends AppCompatActivity {
     App app;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -59,4 +62,6 @@ public class MainActivity extends AppCompatActivity {
             transaction.commit();
         }
     }
+
+
 }

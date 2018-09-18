@@ -1,4 +1,4 @@
-package commaciejprogramuje.facebook.timetablevulcan.screens.unit;
+package commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,16 +13,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
-import commaciejprogramuje.facebook.timetablevulcan.screens.data_from_web.Link;
 import commaciejprogramuje.facebook.timetablevulcan.screens.timetable.TimetableFragment;
 import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
-class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitAdapterHolder> {
+public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetableAdapter.ChooseAdapterHolder> {
     private App app;
     private List<Link> linksToTimetable;
     private String className;
 
-    UnitAdapter(App app, List<Link> linksToTimetable, String className) {
+    ChooseTimetableAdapter(App app, List<Link> linksToTimetable, String className) {
         this.app = app;
         this.linksToTimetable = linksToTimetable;
         this.className = className;
@@ -30,8 +29,8 @@ class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitAdapterHolder> {
 
     @NonNull
     @Override
-    public UnitAdapterHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_timetables, parent, false);
+    public ChooseTimetableAdapter.ChooseAdapterHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_choose_timetable, parent, false);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,11 +49,11 @@ class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitAdapterHolder> {
             }
         });
 
-        return new UnitAdapterHolder(view);
+        return new ChooseTimetableAdapter.ChooseAdapterHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UnitAdapterHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChooseTimetableAdapter.ChooseAdapterHolder holder, int position) {
         holder.inputData(position);
     }
 
@@ -63,13 +62,13 @@ class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitAdapterHolder> {
         return linksToTimetable.size();
     }
 
-    class UnitAdapterHolder extends RecyclerView.ViewHolder {
+    class ChooseAdapterHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text_to_timetable_textview)
         TextView linkToTimetableTextview;
         @BindView(R.id.url_to_timetable_textview)
         TextView urlToTimetableTextview;
 
-        UnitAdapterHolder(View view) {
+        ChooseAdapterHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -80,4 +79,5 @@ class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitAdapterHolder> {
             urlToTimetableTextview.setText(link.getLinkToTimetable());
         }
     }
+
 }

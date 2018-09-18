@@ -1,4 +1,4 @@
-package commaciejprogramuje.facebook.timetablevulcan.screens.data_from_web;
+package commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base;
 
 public class Link {
     private String text;

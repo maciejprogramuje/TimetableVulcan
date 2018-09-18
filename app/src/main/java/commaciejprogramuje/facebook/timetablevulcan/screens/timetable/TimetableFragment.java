@@ -1,11 +1,14 @@
 package commaciejprogramuje.facebook.timetablevulcan.screens.timetable;
 
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -25,6 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.R;
+import commaciejprogramuje.facebook.timetablevulcan.screens.MainActivity;
+import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 
 public class TimetableFragment extends Fragment {
@@ -65,14 +70,28 @@ public class TimetableFragment extends Fragment {
             this.linkToTimetable = arguments.getString(LINK_TO_TIMETABLE);
             this.simpleName = arguments.getString(SIMPLE_NAME);
         }
+
+        setHasOptionsMenu(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        //Views.setTitleBarText(getActivity(), textToTimetable);
-        //Views.setArrowInFragment(getActivity(), simpleName);
+        android.support.v7.app.ActionBar supportActionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                Log.w("UWAGA", "home clicked!");
+                (getActivity()).onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
