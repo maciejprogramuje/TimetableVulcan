@@ -23,6 +23,8 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,7 +88,7 @@ public class TimetableFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         favouriveTimetableLink = app.getFavouriveTimetableLink();
-        if(favouriveTimetableLink.equals(timetableLink)) {
+        if (favouriveTimetableLink.equals(timetableLink)) {
             menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
         } else {
             menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
@@ -105,9 +107,13 @@ public class TimetableFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //(Objects.requireNonNull(getActivity())).onBackPressed();
-                //todo - pattern matcher
-                Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("o"));
+                if (isChooseType("o")) {
+                    Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("o"));
+                } else if (isChooseType("s")) {
+                    Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("s"));
+                } else if(isChooseType("n")) {
+                    Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("n"));
+                }
                 return true;
             case R.id.menu_favorite:
                 favouriveTimetableLink = app.getFavouriveTimetableLink();
@@ -121,6 +127,12 @@ public class TimetableFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isChooseType(String letter) {
+        Pattern pattern = Pattern.compile("plany/" + letter + "\\d+" + "\\.html");
+        Matcher matcher = pattern.matcher(timetableLink);
+        return matcher.find();
     }
 
     @Override
