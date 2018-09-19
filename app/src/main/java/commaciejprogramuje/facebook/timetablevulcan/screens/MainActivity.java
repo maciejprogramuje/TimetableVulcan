@@ -7,12 +7,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
 import commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base.ChooseTimetableFragment;
+import commaciejprogramuje.facebook.timetablevulcan.screens.timetable.TimetableFragment;
 import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,19 +47,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         App app = (App) getApplication();
-
-        changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
-
-        /*String linkToFavouriveTimetable = app.getLinkToFavouriveTimetable();
+        String linkToFavouriveTimetable = app.getLinkToFavouriveTimetable();
         if (linkToFavouriveTimetable.isEmpty()) {
             changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
         } else {
             String textToTimetable = "test";
             Log.w("UWAGA", "linkToFavouriveTimetable=" + linkToFavouriveTimetable);
 
-            Utils.changeFragment(getApplicationContext(), TimetableFragment.newInstance(textToTimetable, linkToFavouriveTimetable));
-        }*/
+            changeFragmentInMainActivity(TimetableFragment.newInstance(textToTimetable, linkToFavouriveTimetable));
+        }
     }
 
     private void changeFragmentInMainActivity(Fragment fragment) {

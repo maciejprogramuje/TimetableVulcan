@@ -2,6 +2,7 @@ package commaciejprogramuje.facebook.timetablevulcan;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
@@ -16,23 +17,19 @@ public class App extends Application {
         super.onCreate();
 
         sharedPreferences = getDefaultSharedPreferences(this);
-        getLinkToFavouriveTimetable();
+        linkToFavouriveTimetable = getLinkToFavouriveTimetable();
+
+        Log.w("UWAGA", "onCreate linkToFavouriveTimetable=" + linkToFavouriveTimetable);
     }
 
-    public void setLinkToFavouriveTimetableToSharedPreferences(String string) {
+    public void setLinkToFavouriveTimetable(String linkToFavouriveTimetable) {
         sharedPreferences.edit()
-                .putString(LINK_TO_FAVOURIVE_TIMETABLE, string)
+                .putString(LINK_TO_FAVOURIVE_TIMETABLE, linkToFavouriveTimetable)
                 .apply();
     }
 
     public String getLinkToFavouriveTimetable() {
-        linkToFavouriveTimetable = sharedPreferences.getString(LINK_TO_FAVOURIVE_TIMETABLE, "");
-        return linkToFavouriveTimetable;
-    }
-
-    public void setLinkToFavouriveTimetable(String linkToFavouriveTimetable) {
-        this.linkToFavouriveTimetable = linkToFavouriveTimetable;
-        setLinkToFavouriveTimetableToSharedPreferences(linkToFavouriveTimetable);
+        return sharedPreferences.getString(LINK_TO_FAVOURIVE_TIMETABLE, "");
     }
 }
 

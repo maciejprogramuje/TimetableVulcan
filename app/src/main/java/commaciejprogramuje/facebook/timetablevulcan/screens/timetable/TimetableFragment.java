@@ -108,7 +108,7 @@ public class TimetableFragment extends Fragment {
             case R.id.menu_favorite:
                 linkToFavouriveTimetable = app.getLinkToFavouriveTimetable();
                 if (linkToFavouriveTimetable.isEmpty()) {
-                    app.setLinkToFavouriveTimetable("http://www.paderewski.lublin.pl/plany/lic/plany/o29.html");
+                    app.setLinkToFavouriveTimetable(linkToTimetable);
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
                 } else {
                     app.setLinkToFavouriveTimetable("");
