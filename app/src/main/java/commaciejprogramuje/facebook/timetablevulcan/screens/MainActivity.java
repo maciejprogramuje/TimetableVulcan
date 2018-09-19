@@ -7,7 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
@@ -46,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
     }
 
     @Override
@@ -55,14 +52,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         App app = (App) getApplication();
-        String linkToFavouriveTimetable = app.getLinkToFavouriveTimetable();
-        if (linkToFavouriveTimetable.isEmpty()) {
+        String favouriveTimetableLink = app.getFavouriveTimetableLink();
+        String favouriteTimetableTitle = app.getFavouriteTimetableTitle();
+        if (favouriveTimetableLink.isEmpty()) {
             changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
         } else {
-            String textToTimetable = "test";
-            Log.w("UWAGA", "linkToFavouriveTimetable=" + linkToFavouriveTimetable);
-
-            changeFragmentInMainActivity(TimetableFragment.newInstance(textToTimetable, linkToFavouriveTimetable));
+            changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink));
         }
     }
 
@@ -74,6 +69,4 @@ public class MainActivity extends AppCompatActivity {
             transaction.commit();
         }
     }
-
-
 }

@@ -2,14 +2,13 @@ package commaciejprogramuje.facebook.timetablevulcan;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class App extends Application {
-    public static final String LINK_TO_FAVOURIVE_TIMETABLE = "linkToFavouriveTimetable";
+    public static final String FAVOURIVE_TIMETABLE_LINK = "favouriveTimetableLink";
+    public static final String FAVOURITE_TIMETABLE_TITLE = "favouriteTimetableTitle";
 
-    private String linkToFavouriveTimetable;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -17,19 +16,23 @@ public class App extends Application {
         super.onCreate();
 
         sharedPreferences = getDefaultSharedPreferences(this);
-        linkToFavouriveTimetable = getLinkToFavouriveTimetable();
-
-        Log.w("UWAGA", "onCreate linkToFavouriveTimetable=" + linkToFavouriveTimetable);
+        getFavouriveTimetableLink();
+        getFavouriteTimetableTitle();
     }
 
-    public void setLinkToFavouriveTimetable(String linkToFavouriveTimetable) {
+    public void setFavouriveTimetable(String favouriveTimetableLink, String favouriteTimetableTitle) {
         sharedPreferences.edit()
-                .putString(LINK_TO_FAVOURIVE_TIMETABLE, linkToFavouriveTimetable)
+                .putString(FAVOURIVE_TIMETABLE_LINK, favouriveTimetableLink)
+                .putString(FAVOURITE_TIMETABLE_TITLE, favouriteTimetableTitle)
                 .apply();
     }
 
-    public String getLinkToFavouriveTimetable() {
-        return sharedPreferences.getString(LINK_TO_FAVOURIVE_TIMETABLE, "");
+    public String getFavouriveTimetableLink() {
+        return sharedPreferences.getString(FAVOURIVE_TIMETABLE_LINK, "");
+    }
+
+    public String getFavouriteTimetableTitle() {
+        return sharedPreferences.getString(FAVOURITE_TIMETABLE_TITLE, "");
     }
 }
 

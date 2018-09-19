@@ -18,11 +18,11 @@ import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetableAdapter.ChooseAdapterHolder> {
     private App app;
-    private List<Link> linksToTimetable;
+    private List<Link> timetableLinks;
 
-    ChooseTimetableAdapter(App app, List<Link> linksToTimetable) {
+    ChooseTimetableAdapter(App app, List<Link> timetableLinks) {
         this.app = app;
-        this.linksToTimetable = linksToTimetable;
+        this.timetableLinks = timetableLinks;
     }
 
     @NonNull
@@ -57,7 +57,7 @@ public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetable
 
     @Override
     public int getItemCount() {
-        return linksToTimetable.size();
+        return timetableLinks.size();
     }
 
     class ChooseAdapterHolder extends RecyclerView.ViewHolder {
@@ -72,7 +72,7 @@ public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetable
         }
 
         void inputData(int position) {
-            Link link = linksToTimetable.get(position);
+            Link link = timetableLinks.get(position);
             linkToTimetableTextview.setText(link.getText());
             urlToTimetableTextview.setText(link.getLinkToTimetable());
         }

@@ -29,32 +29,34 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
+import commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base.ChooseTimetableFragment;
+import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 
 public class TimetableFragment extends Fragment {
-    public static final String LINK_TO_TIMETABLE = "linkToTimetable";
-    public static final String TEXT_TO_TIMETABLE = "textToTimetable";
+    public static final String LINK_TO_TIMETABLE = "timetableLink";
+    public static final String TEXT_TO_TIMETABLE = "timetableTitle";
 
     Unbinder unbinder;
     @BindView(R.id.tableLayout)
     TableLayout tableLayout;
 
-    private String linkToTimetable;
-    private String textToTimetable;
+    private String timetableLink;
+    private String timetableTitle;
     private ArrayList<RowInput> tableOutput;
     private App app;
     private Menu menu;
-    private String linkToFavouriveTimetable;
+    private String favouriveTimetableLink;
 
     public TimetableFragment() {
         // Required empty public constructor
     }
 
-    public static TimetableFragment newInstance(String textToTimetable, String linkToTimetable) {
+    public static TimetableFragment newInstance(String timetableTitle, String timetableLink) {
         TimetableFragment fragment = new TimetableFragment();
         Bundle args = new Bundle();
-        args.putString(TEXT_TO_TIMETABLE, textToTimetable);
-        args.putString(LINK_TO_TIMETABLE, linkToTimetable);
+        args.putString(TEXT_TO_TIMETABLE, timetableTitle);
+        args.putString(LINK_TO_TIMETABLE, timetableLink);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,13 +66,13 @@ public class TimetableFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            this.textToTimetable = arguments.getString(TEXT_TO_TIMETABLE);
-            this.linkToTimetable = arguments.getString(LINK_TO_TIMETABLE);
+            this.timetableTitle = arguments.getString(TEXT_TO_TIMETABLE);
+            this.timetableLink = arguments.getString(LINK_TO_TIMETABLE);
         }
 
         setHasOptionsMenu(true);
 
-        app = (App) getContext().getApplicationContext();
+        app = (App) Objects.requireNonNull(getContext()).getApplicationContext();
     }
 
     @Override
@@ -78,16 +80,16 @@ public class TimetableFragment extends Fragment {
         super.onResume();
 
         TimetableStatic.showBackArrow(getContext());
-        TimetableStatic.setTitleBarText(getActivity(), textToTimetable);
+        TimetableStatic.setTitleBarText(getActivity(), timetableTitle);
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        linkToFavouriveTimetable = app.getLinkToFavouriveTimetable();
-        if (linkToFavouriveTimetable.isEmpty()) {
-            menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
-        } else {
+        favouriveTimetableLink = app.getFavouriveTimetableLink();
+        if(favouriveTimetableLink.equals(timetableLink)) {
             menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
+        } else {
+            menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
         }
 
         super.onPrepareOptionsMenu(menu);
@@ -103,15 +105,16 @@ public class TimetableFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                (Objects.requireNonNull(getActivity())).onBackPressed();
+                //(Objects.requireNonNull(getActivity())).onBackPressed();
+                Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("o"));
                 return true;
             case R.id.menu_favorite:
-                linkToFavouriveTimetable = app.getLinkToFavouriveTimetable();
-                if (linkToFavouriveTimetable.isEmpty()) {
-                    app.setLinkToFavouriveTimetable(linkToTimetable);
+                favouriveTimetableLink = app.getFavouriveTimetableLink();
+                if (favouriveTimetableLink.isEmpty()) {
+                    app.setFavouriveTimetable(timetableLink, timetableTitle);
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
                 } else {
-                    app.setLinkToFavouriveTimetable("");
+                    app.setFavouriveTimetable("", "");
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
                 }
                 return true;
@@ -162,7 +165,7 @@ public class TimetableFragment extends Fragment {
     private void getTimetableFromWeb() {
         Document document = null;
         try {
-            document = Jsoup.connect(linkToTimetable).get();
+            document = Jsoup.connect(timetableLink).get();
             tableOutput = new ArrayList<>();
 
             Element tableInput = document.getElementsByClass("tabela").get(0);
