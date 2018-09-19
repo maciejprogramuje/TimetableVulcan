@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
 
 
@@ -36,10 +39,12 @@ public class TimetableFragment extends Fragment {
     @BindView(R.id.tableLayout)
     TableLayout tableLayout;
 
-
     private String linkToTimetable;
     private String textToTimetable;
     private ArrayList<RowInput> tableOutput;
+    private App app;
+    private Menu menu;
+    private String linkToFavouriveTimetable;
 
     public TimetableFragment() {
         // Required empty public constructor
@@ -64,6 +69,8 @@ public class TimetableFragment extends Fragment {
         }
 
         setHasOptionsMenu(true);
+
+        app = (App) getContext().getApplicationContext();
     }
 
     @Override
@@ -74,12 +81,39 @@ public class TimetableFragment extends Fragment {
         TimetableStatic.setTitleBarText(getActivity(), textToTimetable);
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        linkToFavouriveTimetable = app.getLinkToFavouriveTimetable();
+        if (linkToFavouriveTimetable.isEmpty()) {
+            menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
+        } else {
+            menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
+        }
+
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        this.menu = menu;
+        inflater.inflate(R.menu.timetable_menu, menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 (Objects.requireNonNull(getActivity())).onBackPressed();
+                return true;
+            case R.id.menu_favorite:
+                linkToFavouriveTimetable = app.getLinkToFavouriveTimetable();
+                if (linkToFavouriveTimetable.isEmpty()) {
+                    app.setLinkToFavouriveTimetable("http://www.paderewski.lublin.pl/plany/lic/plany/o29.html");
+                    menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
+                } else {
+                    app.setLinkToFavouriveTimetable("");
+                    menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);

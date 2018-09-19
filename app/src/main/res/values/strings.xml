@@ -3,5 +3,6 @@
     <string name="unit">Unit</string>
     <string name="classroom">Classroom</string>
     <string name="teacher">Teacher</string>
+    <string name="favorite">Favorite</string>
 
 </resources>

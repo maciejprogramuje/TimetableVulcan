@@ -4,5 +4,6 @@
     <string name="unit">Klasa</string>
     <string name="classroom">Sala</string>
     <string name="teacher">Nauczyciel</string>
+    <string name="favorite">Ulubiony</string>
 
 </resources>

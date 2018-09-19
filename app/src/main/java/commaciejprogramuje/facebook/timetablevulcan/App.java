@@ -16,7 +16,7 @@ public class App extends Application {
         super.onCreate();
 
         sharedPreferences = getDefaultSharedPreferences(this);
-        linkToFavouriveTimetable = sharedPreferences.getString(LINK_TO_FAVOURIVE_TIMETABLE, "");
+        getLinkToFavouriveTimetable();
     }
 
     public void setLinkToFavouriveTimetableToSharedPreferences(String string) {
@@ -26,15 +26,13 @@ public class App extends Application {
     }
 
     public String getLinkToFavouriveTimetable() {
+        linkToFavouriveTimetable = sharedPreferences.getString(LINK_TO_FAVOURIVE_TIMETABLE, "");
         return linkToFavouriveTimetable;
     }
 
     public void setLinkToFavouriveTimetable(String linkToFavouriveTimetable) {
         this.linkToFavouriveTimetable = linkToFavouriveTimetable;
-    }
-
-    public SharedPreferences getSharedPreferences() {
-        return sharedPreferences;
+        setLinkToFavouriveTimetableToSharedPreferences(linkToFavouriveTimetable);
     }
 }
 

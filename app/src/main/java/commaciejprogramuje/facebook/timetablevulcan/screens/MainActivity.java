@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
+import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
 import commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base.ChooseTimetableFragment;
 import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
@@ -44,7 +45,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        App app = (App) getApplication();
+
         changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
+
+        /*String linkToFavouriveTimetable = app.getLinkToFavouriveTimetable();
+        if (linkToFavouriveTimetable.isEmpty()) {
+            changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
+        } else {
+            String textToTimetable = "test";
+            Log.w("UWAGA", "linkToFavouriveTimetable=" + linkToFavouriveTimetable);
+
+            Utils.changeFragment(getApplicationContext(), TimetableFragment.newInstance(textToTimetable, linkToFavouriveTimetable));
+        }*/
     }
 
     private void changeFragmentInMainActivity(Fragment fragment) {

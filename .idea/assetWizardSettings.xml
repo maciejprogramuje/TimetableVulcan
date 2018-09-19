@@ -71,7 +71,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_school_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_favorite_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -81,8 +81,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_if_picture7_3289566" />
+                            <entry key="outputName" value="ic_favorite" />
                             <entry key="sourceFile" value="C:\Users\m.szymczyk\Desktop\if_Picture7_3289566.svg" />
                           </map>
                         </option>
