@@ -106,6 +106,7 @@ public class TimetableFragment extends Fragment {
         switch (item.getItemId()) {
             case android.R.id.home:
                 //(Objects.requireNonNull(getActivity())).onBackPressed();
+                //todo - pattern matcher
                 Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("o"));
                 return true;
             case R.id.menu_favorite:
