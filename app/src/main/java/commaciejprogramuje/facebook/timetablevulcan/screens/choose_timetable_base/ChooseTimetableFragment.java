@@ -105,7 +105,6 @@ public class ChooseTimetableFragment extends Fragment {
             document = Jsoup.connect(baseUrl + "lista.html").get();
             Elements elements = document.select("a");
             for (Element element : elements) {
-                //todo
                 String tempLink = baseUrl + element.attr("href");
                 if(Utils.isLetterInLink(letter, tempLink)) {
                     linksToTimetable.add(new Link(element.text(), tempLink));

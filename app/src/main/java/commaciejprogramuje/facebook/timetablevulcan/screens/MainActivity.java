@@ -7,7 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
@@ -20,6 +19,7 @@ import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView navigation;
+    private App app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_teacher:
                         changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("n"));
                         return true;
+                    case R.id.navigation_favorite:
+                        app = (App) getApplication();
+                        String favouriveTimetableLink = app.getFavouriveTimetableLink();
+                        String favouriteTimetableTitle = app.getFavouriteTimetableTitle();
+                        if(!favouriveTimetableLink.isEmpty()) {
+                            changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink, false));
+                        }
+                        return true;
                 }
                 return false;
             }
@@ -54,28 +62,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        App app = (App) getApplication();
+        app = (App) getApplication();
         String favouriveTimetableLink = app.getFavouriveTimetableLink();
         String favouriteTimetableTitle = app.getFavouriteTimetableTitle();
+
         if (favouriveTimetableLink.isEmpty()) {
             changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
         } else {
             changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink, false));
-
-            if(Utils.isLetterInLink("o", favouriveTimetableLink)) {
-                navigation.getMenu().getItem(0).setChecked(true);
-            } else if(Utils.isLetterInLink("s", favouriveTimetableLink)) {
-                navigation.getMenu().getItem(1).setChecked(true);
-            } else if(Utils.isLetterInLink("n", favouriveTimetableLink)) {
-                navigation.getMenu().getItem(2).setChecked(true);
-            }
+            navigation.getMenu().getItem(3).setChecked(true);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.favourite_menu, menu);
-        return true;
     }
 
     private void changeFragmentInMainActivity(Fragment fragment) {

@@ -102,7 +102,7 @@ public class TimetableFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         this.menu = menu;
-        inflater.inflate(R.menu.favourite_menu, menu);
+        inflater.inflate(R.menu.fragment_menu, menu);
     }
 
     @Override
