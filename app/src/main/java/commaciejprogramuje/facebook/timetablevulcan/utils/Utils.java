@@ -1,27 +1,15 @@
 package commaciejprogramuje.facebook.timetablevulcan.utils;
 
-import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.safety.Whitelist;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import java.util.Objects;
-
-import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
-import commaciejprogramuje.facebook.timetablevulcan.screens.MainActivity;
 
 public class Utils {
     public static boolean isInternetConnection(Context context) {
@@ -37,5 +25,11 @@ public class Utils {
             transaction.addToBackStack(null);
             transaction.commit();
         }
+    }
+
+    public static boolean isLetterInLink(String letter, String link) {
+        Pattern pattern = Pattern.compile("plany/" + letter + "\\d+" + "\\.html");
+        Matcher matcher = pattern.matcher(link);
+        return matcher.find();
     }
 }

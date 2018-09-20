@@ -40,7 +40,7 @@ public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetable
                     TextView urlToTimetableTextView = v.findViewById(R.id.url_to_timetable_textview);
                     String ulrToTimetable = urlToTimetableTextView.getText().toString();
 
-                    Utils.changeFragment(view.getContext(), TimetableFragment.newInstance(textToTimetable, ulrToTimetable));
+                    Utils.changeFragment(view.getContext(), TimetableFragment.newInstance(textToTimetable, ulrToTimetable, true));
                 } else {
                     //Snackbars.noInternetSnackbar(v);
                 }

@@ -19,8 +19,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +26,7 @@ import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
 import commaciejprogramuje.facebook.timetablevulcan.screens.timetable.TimetableStatic;
+import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 public class ChooseTimetableFragment extends Fragment {
     public static final String LETTER = "letter";
@@ -106,10 +105,9 @@ public class ChooseTimetableFragment extends Fragment {
             document = Jsoup.connect(baseUrl + "lista.html").get();
             Elements elements = document.select("a");
             for (Element element : elements) {
+                //todo
                 String tempLink = baseUrl + element.attr("href");
-                Pattern pattern = Pattern.compile("plany/" + letter + "\\d+" + "\\.html");
-                Matcher matcher = pattern.matcher(tempLink);
-                if (matcher.find()) {
+                if(Utils.isLetterInLink(letter, tempLink)) {
                     linksToTimetable.add(new Link(element.text(), tempLink));
                 }
             }

@@ -23,21 +23,18 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
-import commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base.ChooseTimetableFragment;
-import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 
 public class TimetableFragment extends Fragment {
     public static final String LINK_TO_TIMETABLE = "timetableLink";
     public static final String TEXT_TO_TIMETABLE = "timetableTitle";
+    public static final String HAS_OPTIONS_MENU = "hasBackArrow";
 
     Unbinder unbinder;
     @BindView(R.id.tableLayout)
@@ -49,16 +46,18 @@ public class TimetableFragment extends Fragment {
     private App app;
     private Menu menu;
     private String favouriveTimetableLink;
+    private boolean hasBackArrow;
 
     public TimetableFragment() {
         // Required empty public constructor
     }
 
-    public static TimetableFragment newInstance(String timetableTitle, String timetableLink) {
+    public static TimetableFragment newInstance(String timetableTitle, String timetableLink, boolean hasBackArrow) {
         TimetableFragment fragment = new TimetableFragment();
         Bundle args = new Bundle();
         args.putString(TEXT_TO_TIMETABLE, timetableTitle);
         args.putString(LINK_TO_TIMETABLE, timetableLink);
+        args.putBoolean(HAS_OPTIONS_MENU, hasBackArrow);
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,6 +69,7 @@ public class TimetableFragment extends Fragment {
         if (arguments != null) {
             this.timetableTitle = arguments.getString(TEXT_TO_TIMETABLE);
             this.timetableLink = arguments.getString(LINK_TO_TIMETABLE);
+            this.hasBackArrow = arguments.getBoolean(HAS_OPTIONS_MENU);
         }
 
         setHasOptionsMenu(true);
@@ -81,7 +81,9 @@ public class TimetableFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        TimetableStatic.showBackArrow(getContext());
+        if (hasBackArrow) {
+            TimetableStatic.showBackArrow(getContext());
+        }
         TimetableStatic.setTitleBarText(getActivity(), timetableTitle);
     }
 
@@ -100,24 +102,18 @@ public class TimetableFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         this.menu = menu;
-        inflater.inflate(R.menu.timetable_menu, menu);
+        inflater.inflate(R.menu.favourite_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (isChooseType("o")) {
-                    Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("o"));
-                } else if (isChooseType("s")) {
-                    Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("s"));
-                } else if (isChooseType("n")) {
-                    Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("n"));
-                }
+                (Objects.requireNonNull(getActivity())).onBackPressed();
                 return true;
             case R.id.menu_favorite:
                 favouriveTimetableLink = app.getFavouriveTimetableLink();
-                if(favouriveTimetableLink.equals(timetableLink)) {
+                if (favouriveTimetableLink.equals(timetableLink)) {
                     app.setFavouriveTimetable("", "");
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
                 } else {
@@ -127,12 +123,6 @@ public class TimetableFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private boolean isChooseType(String letter) {
-        Pattern pattern = Pattern.compile("plany/" + letter + "\\d+" + "\\.html");
-        Matcher matcher = pattern.matcher(timetableLink);
-        return matcher.find();
     }
 
     @Override

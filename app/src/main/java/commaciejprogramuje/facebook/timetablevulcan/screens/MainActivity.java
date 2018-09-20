@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
@@ -18,6 +19,8 @@ import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BottomNavigationView navigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -57,8 +60,22 @@ public class MainActivity extends AppCompatActivity {
         if (favouriveTimetableLink.isEmpty()) {
             changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
         } else {
-            changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink));
+            changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink, false));
+
+            if(Utils.isLetterInLink("o", favouriveTimetableLink)) {
+                navigation.getMenu().getItem(0).setChecked(true);
+            } else if(Utils.isLetterInLink("s", favouriveTimetableLink)) {
+                navigation.getMenu().getItem(1).setChecked(true);
+            } else if(Utils.isLetterInLink("n", favouriveTimetableLink)) {
+                navigation.getMenu().getItem(2).setChecked(true);
+            }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.favourite_menu, menu);
+        return true;
     }
 
     private void changeFragmentInMainActivity(Fragment fragment) {
