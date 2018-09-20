@@ -111,18 +111,18 @@ public class TimetableFragment extends Fragment {
                     Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("o"));
                 } else if (isChooseType("s")) {
                     Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("s"));
-                } else if(isChooseType("n")) {
+                } else if (isChooseType("n")) {
                     Utils.changeFragment(getContext(), ChooseTimetableFragment.newInstance("n"));
                 }
                 return true;
             case R.id.menu_favorite:
                 favouriveTimetableLink = app.getFavouriveTimetableLink();
-                if (favouriveTimetableLink.isEmpty()) {
-                    app.setFavouriveTimetable(timetableLink, timetableTitle);
-                    menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
-                } else {
+                if(favouriveTimetableLink.equals(timetableLink)) {
                     app.setFavouriveTimetable("", "");
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
+                } else {
+                    app.setFavouriveTimetable(timetableLink, timetableTitle);
+                    menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
                 }
                 return true;
         }
