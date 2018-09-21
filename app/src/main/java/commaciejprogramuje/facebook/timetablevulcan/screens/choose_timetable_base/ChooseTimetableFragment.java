@@ -1,5 +1,6 @@
 package commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
+import commaciejprogramuje.facebook.timetablevulcan.screens.login.SchoolLinkActivity;
 import commaciejprogramuje.facebook.timetablevulcan.screens.timetable.TimetableStatic;
 import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
@@ -38,6 +43,7 @@ public class ChooseTimetableFragment extends Fragment {
     private App app;
     protected List<Link> linksToTimetable;
     protected String letter;
+    private Menu menu;
 
     public ChooseTimetableFragment() {
         // Required empty public constructor
@@ -58,6 +64,8 @@ public class ChooseTimetableFragment extends Fragment {
         if (arguments != null) {
             this.letter = arguments.getString(LETTER);
         }
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -71,6 +79,25 @@ public class ChooseTimetableFragment extends Fragment {
         //baseUrl = "http://www.paderewski.lublin.pl/plany/lic/";
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        this.menu = menu;
+        inflater.inflate(R.menu.choose_timetable_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_change_school:
+                app.setFavouriteTimetableTitle("");
+                app.setFavouriveTimetableLink("");
+                app.saveFavouriveTimetable("", "");
+                startActivity(new Intent(getContext(), SchoolLinkActivity.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

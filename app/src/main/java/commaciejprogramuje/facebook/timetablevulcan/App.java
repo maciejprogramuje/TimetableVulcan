@@ -2,6 +2,7 @@ package commaciejprogramuje.facebook.timetablevulcan;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.view.Menu;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
@@ -14,6 +15,8 @@ public class App extends Application {
     private String baseUrl;
     private String favouriveTimetableLink;
     private String favouriteTimetableTitle;
+
+    private Menu menu;
 
     @Override
     public void onCreate() {
@@ -60,6 +63,14 @@ public class App extends Application {
 
     public String getFavouriteTimetableTitle() {
         return favouriteTimetableTitle;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }
 
