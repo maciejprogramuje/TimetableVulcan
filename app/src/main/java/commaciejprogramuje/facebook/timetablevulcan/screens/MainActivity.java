@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
                         app = (App) getApplication();
                         String favouriveTimetableLink = app.getFavouriveTimetableLink();
                         String favouriteTimetableTitle = app.getFavouriteTimetableTitle();
-                        if(!favouriveTimetableLink.isEmpty()) {
+                        if (!favouriveTimetableLink.isEmpty()) {
                             changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink, false));
+                            return true;
                         }
-                        return true;
                 }
                 return false;
             }
