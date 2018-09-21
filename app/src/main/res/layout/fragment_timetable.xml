@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbars="horizontal|vertical">
+        android:scrollbars="horizontal|vertical"
+        android:clipToPadding="false"
+        android:paddingBottom="54dp" >
 
         <HorizontalScrollView
             android:layout_height="wrap_content"

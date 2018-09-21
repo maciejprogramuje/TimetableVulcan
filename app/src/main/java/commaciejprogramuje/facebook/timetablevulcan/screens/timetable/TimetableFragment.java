@@ -83,6 +83,8 @@ public class TimetableFragment extends Fragment {
 
         if (hasBackArrow) {
             TimetableStatic.showBackArrow(getContext());
+        } else {
+            TimetableStatic.hideBackArrow(getContext());
         }
         TimetableStatic.setTitleBarText(getActivity(), timetableTitle);
     }
@@ -91,7 +93,8 @@ public class TimetableFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         favouriveTimetableLink = app.getFavouriveTimetableLink();
         if (favouriveTimetableLink.equals(timetableLink)) {
-            menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
+            //menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
+            menu.getItem(0).setVisible(false);
         } else {
             menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
         }
