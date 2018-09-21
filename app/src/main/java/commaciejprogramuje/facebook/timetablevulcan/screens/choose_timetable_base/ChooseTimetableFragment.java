@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,6 @@ public class ChooseTimetableFragment extends Fragment {
 
     private App app;
     protected List<Link> linksToTimetable;
-    protected String baseUrl;
     protected String letter;
 
     public ChooseTimetableFragment() {
@@ -68,7 +68,7 @@ public class ChooseTimetableFragment extends Fragment {
         app = (App) view.getContext().getApplicationContext();
 
         linksToTimetable = new ArrayList<>();
-        baseUrl = "http://www.paderewski.lublin.pl/plany/lic/";
+        //baseUrl = "http://www.paderewski.lublin.pl/plany/lic/";
 
         return view;
     }
@@ -100,13 +100,16 @@ public class ChooseTimetableFragment extends Fragment {
     }
 
     public void fillLinksToTimetables() {
+        String baseUrl = app.getBaseUrl();
+        Log.w("UWAGA", "baseUrl=" + baseUrl);
+
         Document document = null;
         try {
             document = Jsoup.connect(baseUrl + "lista.html").get();
             Elements elements = document.select("a");
             for (Element element : elements) {
                 String tempLink = baseUrl + element.attr("href");
-                if(Utils.isLetterInLink(letter, tempLink)) {
+                if (Utils.isLetterInLink(letter, tempLink)) {
                     linksToTimetable.add(new Link(element.text(), tempLink));
                 }
             }

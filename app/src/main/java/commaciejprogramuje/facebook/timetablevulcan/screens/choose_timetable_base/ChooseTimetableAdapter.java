@@ -42,6 +42,7 @@ public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetable
 
                     Utils.changeFragment(view.getContext(), TimetableFragment.newInstance(textToTimetable, ulrToTimetable, true));
                 } else {
+                    //todo
                     //Snackbars.noInternetSnackbar(v);
                 }
             }

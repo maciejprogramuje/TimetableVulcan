@@ -1,6 +1,7 @@
 package commaciejprogramuje.facebook.timetablevulcan.screens.timetable;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
+import commaciejprogramuje.facebook.timetablevulcan.screens.login.SchoolLinkActivity;
 
 
 public class TimetableFragment extends Fragment {
@@ -93,7 +95,6 @@ public class TimetableFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         favouriveTimetableLink = app.getFavouriveTimetableLink();
         if (favouriveTimetableLink.equals(timetableLink)) {
-            //menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
             menu.getItem(0).setVisible(false);
         } else {
             menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
@@ -117,12 +118,22 @@ public class TimetableFragment extends Fragment {
             case R.id.menu_favorite:
                 favouriveTimetableLink = app.getFavouriveTimetableLink();
                 if (favouriveTimetableLink.equals(timetableLink)) {
-                    app.setFavouriveTimetable("", "");
+                    app.setFavouriteTimetableTitle("");
+                    app.setFavouriveTimetableLink("");
+                    app.saveFavouriveTimetable("", "");
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_border, null));
                 } else {
-                    app.setFavouriveTimetable(timetableLink, timetableTitle);
+                    app.setFavouriteTimetableTitle(timetableTitle);
+                    app.setFavouriveTimetableLink(timetableLink);
+                    app.saveFavouriveTimetable(timetableLink, timetableTitle);
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite, null));
                 }
+                return true;
+            case R.id.menu_change_school:
+                app.setFavouriteTimetableTitle("");
+                app.setFavouriveTimetableLink("");
+                app.saveFavouriveTimetable("", "");
+                startActivity(new Intent(getContext(), SchoolLinkActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -133,6 +144,7 @@ public class TimetableFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        //todo
         //Views.adRequest(adView);
 
         return view;

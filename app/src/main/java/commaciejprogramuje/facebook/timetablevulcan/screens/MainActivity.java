@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import java.lang.reflect.Field;
@@ -23,7 +24,6 @@ import commaciejprogramuje.facebook.timetablevulcan.screens.timetable.TimetableF
 import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
-
     private BottomNavigationView navigation;
     private App app;
 
@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
             changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink, false));
             navigation.getMenu().getItem(3).setChecked(true);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void changeFragmentInMainActivity(Fragment fragment) {

@@ -4,5 +4,7 @@
     <string name="classroom">Classroom</string>
     <string name="teacher">Teacher</string>
     <string name="favorite">Favorite</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="change_school_link">Change link to timetable</string>
 
 </resources>
