@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".screens.MainActivity">
 
+    <TextView
+        android:id="@+id/no_internet_main_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:text="@string/turn_on_internet"
+        android:gravity="center"/>
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"

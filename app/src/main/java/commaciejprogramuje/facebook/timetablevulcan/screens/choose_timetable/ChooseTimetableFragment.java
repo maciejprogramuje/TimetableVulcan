@@ -1,4 +1,4 @@
-package commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base;
+package commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.gms.ads.AdView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,11 +41,14 @@ public class ChooseTimetableFragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.unit_recycler_view)
     RecyclerView unitRecyclerView;
+    @BindView(R.id.adView)
+    AdView adView;
+    @BindView(R.id.no_data_choose_timetable)
+    TextView noDataChooseTimetable;
 
     private App app;
     protected List<Link> linksToTimetable;
     protected String letter;
-    private Menu menu;
 
     public ChooseTimetableFragment() {
         // Required empty public constructor
@@ -72,17 +78,17 @@ public class ChooseTimetableFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_choose_timetable, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        Utils.adRequest(adView);
+
         app = (App) view.getContext().getApplicationContext();
 
         linksToTimetable = new ArrayList<>();
-        //baseUrl = "http://www.paderewski.lublin.pl/plany/lic/";
 
         return view;
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        this.menu = menu;
         inflater.inflate(R.menu.choose_timetable_menu, menu);
     }
 
@@ -90,11 +96,7 @@ public class ChooseTimetableFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_change_school:
-                app.setFavouriteTimetableTitle("");
-                app.setFavouriveTimetableLink("");
-                app.saveFavouriveTimetable("", "");
-                app.setBaseUrl("");
-                app.saveBaseUrl("");
+                app.clearCredentials();
                 startActivity(new Intent(getContext(), SchoolLinkActivity.class));
                 return true;
         }
@@ -107,10 +109,18 @@ public class ChooseTimetableFragment extends Fragment {
 
         fillLinksToTimetables();
 
-        unitRecyclerView.setHasFixedSize(true);
-        unitRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        unitRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        unitRecyclerView.setAdapter(new ChooseTimetableAdapter(app, linksToTimetable));
+        if (linksToTimetable.isEmpty()) {
+            noDataChooseTimetable.setVisibility(View.VISIBLE);
+            unitRecyclerView.setVisibility(View.GONE);
+        } else {
+            noDataChooseTimetable.setVisibility(View.GONE);
+            unitRecyclerView.setVisibility(View.VISIBLE);
+
+            unitRecyclerView.setHasFixedSize(true);
+            unitRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+            unitRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            unitRecyclerView.setAdapter(new ChooseTimetableAdapter(app, linksToTimetable));
+        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Plan lekcj Vulcan2</string>
+    <string name="app_name">Plan lekcji Vulcan2</string>
     <string name="unit">Klasa</string>
     <string name="classroom">Sala</string>
     <string name="teacher">Nauczyciel</string>
@@ -11,5 +11,8 @@
     <string name="connect">Połącz ze stroną!</string>
     <string name="login_text2">na przykład:</string>
     <string name="error_timetable">Problem z wyświetleniem planu!</string>
+    <string name="turn_on_internet">Włącz internet!</string>
+    <string name="bad_link">Błędny link! Spróbuj ponownie!</string>
+    <string name="no_data">Szkoła nie udostępnia takich danych!</string>
 
 </resources>

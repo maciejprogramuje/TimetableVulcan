@@ -120,8 +120,12 @@ public class TimetableFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                (Objects.requireNonNull(getActivity())).onBackPressed();
-                return true;
+                if (Utils.isInternetConnection(app)) {
+                    (Objects.requireNonNull(getActivity())).onBackPressed();
+                    return true;
+                } else {
+                    Utils.noInternetSnackbar(tableLayout);
+                }
             case R.id.menu_favorite:
                 favouriveTimetableLink = app.getFavouriveTimetableLink();
                 if (favouriveTimetableLink.equals(timetableLink)) {
@@ -137,9 +141,7 @@ public class TimetableFragment extends Fragment {
                 }
                 return true;
             case R.id.menu_change_school:
-                app.setFavouriteTimetableTitle("");
-                app.setFavouriveTimetableLink("");
-                app.saveFavouriveTimetable("", "");
+                app.clearCredentials();
                 startActivity(new Intent(getContext(), SchoolLinkActivity.class));
                 return true;
         }
@@ -151,7 +153,6 @@ public class TimetableFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        //todo
         Utils.adRequest(adView);
 
         return view;
@@ -227,6 +228,7 @@ public class TimetableFragment extends Fragment {
         ArrayList<String> getCells() {
             return cells;
         }
+
     }
 
     @Override

@@ -13,17 +13,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
-import commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base.ChooseTimetableFragment;
+import commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable.ChooseTimetableFragment;
 import commaciejprogramuje.facebook.timetablevulcan.screens.timetable.TimetableFragment;
 import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
+    @BindView(R.id.no_internet_main_activity)
+    TextView noInternetMainActivity;
     private BottomNavigationView navigation;
     private App app;
 
@@ -36,29 +41,36 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        //todo - add
+        //Utils.initializeAd(this);
+
         navigation = findViewById(R.id.navigation);
         removeShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.navigation_unit:
-                        changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
-                        return true;
-                    case R.id.navigation_class:
-                        changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("s"));
-                        return true;
-                    case R.id.navigation_teacher:
-                        changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("n"));
-                        return true;
-                    case R.id.navigation_favorite:
-                        app = (App) getApplication();
-                        String favouriveTimetableLink = app.getFavouriveTimetableLink();
-                        String favouriteTimetableTitle = app.getFavouriteTimetableTitle();
-                        if (!favouriveTimetableLink.isEmpty()) {
-                            changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink, false));
+                if (Utils.isInternetConnection(app)) {
+                    switch (menuItem.getItemId()) {
+                        case R.id.navigation_unit:
+                            changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
                             return true;
-                        }
+                        case R.id.navigation_class:
+                            changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("s"));
+                            return true;
+                        case R.id.navigation_teacher:
+                            changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("n"));
+                            return true;
+                        case R.id.navigation_favorite:
+                            app = (App) getApplication();
+                            String favouriveTimetableLink = app.getFavouriveTimetableLink();
+                            String favouriteTimetableTitle = app.getFavouriteTimetableTitle();
+                            if (!favouriveTimetableLink.isEmpty()) {
+                                changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink, false));
+                                return true;
+                            }
+                    }
+                } else {
+                    Utils.noInternetSnackbar(navigation);
                 }
                 return false;
             }
@@ -73,11 +85,17 @@ public class MainActivity extends AppCompatActivity {
         String favouriveTimetableLink = app.getFavouriveTimetableLink();
         String favouriteTimetableTitle = app.getFavouriteTimetableTitle();
 
-        if (favouriveTimetableLink.isEmpty()) {
-            changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
+        if (Utils.isInternetConnection(this)) {
+            noInternetMainActivity.setVisibility(View.GONE);
+
+            if (favouriveTimetableLink.isEmpty()) {
+                changeFragmentInMainActivity(ChooseTimetableFragment.newInstance("o"));
+            } else {
+                changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink, false));
+                navigation.getMenu().getItem(3).setChecked(true);
+            }
         } else {
-            changeFragmentInMainActivity(TimetableFragment.newInstance(favouriteTimetableTitle, favouriveTimetableLink, false));
-            navigation.getMenu().getItem(3).setChecked(true);
+            noInternetMainActivity.setVisibility(View.VISIBLE);
         }
     }
 
@@ -88,10 +106,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeFragmentInMainActivity(Fragment fragment) {
         if (Utils.isInternetConnection(this)) {
+            noInternetMainActivity.setVisibility(View.GONE);
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, fragment);
             transaction.addToBackStack(null);
             transaction.commit();
+        } else {
+            noInternetMainActivity.setVisibility(View.VISIBLE);
         }
     }
 

@@ -1,4 +1,4 @@
-package commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable_base;
+package commaciejprogramuje.facebook.timetablevulcan.screens.choose_timetable;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -42,8 +42,7 @@ public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetable
 
                     Utils.changeFragment(view.getContext(), TimetableFragment.newInstance(textToTimetable, ulrToTimetable, true));
                 } else {
-                    //todo
-                    //Snackbars.noInternetSnackbar(v);
+                    Utils.noInternetSnackbar(v);
                 }
             }
         });
@@ -78,5 +77,4 @@ public class ChooseTimetableAdapter extends RecyclerView.Adapter<ChooseTimetable
             urlToTimetableTextview.setText(link.getLinkToTimetable());
         }
     }
-
 }

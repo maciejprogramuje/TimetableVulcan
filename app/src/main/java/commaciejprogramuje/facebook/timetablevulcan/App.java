@@ -41,6 +41,14 @@ public class App extends Application {
                 .apply();
     }
 
+    public void clearCredentials() {
+        setFavouriteTimetableTitle("");
+        setFavouriveTimetableLink("");
+        saveFavouriveTimetable("", "");
+        setBaseUrl("");
+        saveBaseUrl("");
+    }
+
     public void setFavouriteTimetableTitle(String favouriteTimetableTitle) {
         this.favouriteTimetableTitle = favouriteTimetableTitle;
     }
