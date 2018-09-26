@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,11 +48,14 @@ public class SchoolLinkActivity extends Activity {
             String schoolLink = formatLink(enterLinkEdittext.getText().toString());
             Log.w("UWAGA", "schoolLink=" + schoolLink);
             try {
+                Log.w("UWAGA", "schoolLink=OK");
                 Jsoup.connect(schoolLink).get();
                 app.setBaseUrl(schoolLink);
                 app.saveBaseUrl(schoolLink);
                 goToMainActivity();
             } catch (Exception e) {
+                Log.w("UWAGA", "schoolLink=PROBLEM --->>> ");
+                e.printStackTrace();
                 app.clearCredentials();
                 Utils.showSnackbar(enterLinkEdittext, getResources().getString(R.string.bad_link));
             }
@@ -61,10 +65,10 @@ public class SchoolLinkActivity extends Activity {
     }
 
     private String formatLink(String s) {
-        if (!s.startsWith("http://www.")) {
-            s = "http://www." + s;
-        } else if (s.startsWith("www.")) {
+        if (s.startsWith("www.")) {
             s = "http://" + s;
+        } else if (!s.startsWith("http://www.")) {
+            s = "http://www." + s;
         }
 
         if (!s.endsWith("/")) {
