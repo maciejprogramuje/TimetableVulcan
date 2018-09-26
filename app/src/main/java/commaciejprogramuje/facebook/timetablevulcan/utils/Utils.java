@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,5 +34,10 @@ public class Utils {
         Pattern pattern = Pattern.compile("plany/" + letter + "\\d+" + "\\.html");
         Matcher matcher = pattern.matcher(link);
         return matcher.find();
+    }
+
+    public static void adRequest(AdView adView) {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 }

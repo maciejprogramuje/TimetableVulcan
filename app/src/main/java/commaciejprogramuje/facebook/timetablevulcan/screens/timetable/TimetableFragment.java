@@ -17,6 +17,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,6 +33,7 @@ import butterknife.Unbinder;
 import commaciejprogramuje.facebook.timetablevulcan.App;
 import commaciejprogramuje.facebook.timetablevulcan.R;
 import commaciejprogramuje.facebook.timetablevulcan.screens.login.SchoolLinkActivity;
+import commaciejprogramuje.facebook.timetablevulcan.utils.Utils;
 
 
 public class TimetableFragment extends Fragment {
@@ -41,6 +44,10 @@ public class TimetableFragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.tableLayout)
     TableLayout tableLayout;
+    @BindView(R.id.empty_timetable)
+    TextView emptyTimetable;
+    @BindView(R.id.adView)
+    AdView adView;
 
     private String timetableLink;
     private String timetableTitle;
@@ -145,7 +152,7 @@ public class TimetableFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         //todo
-        //Views.adRequest(adView);
+        Utils.adRequest(adView);
 
         return view;
     }
@@ -159,15 +166,17 @@ public class TimetableFragment extends Fragment {
     }
 
     private void fillTableLayoutByTimeteableData() {
-        for (RowInput rowInput : tableOutput) {
-            TableRow tableRow = new TableRow(this.getContext());
-            tableRow.setDividerDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.table_divider, null));
-            tableRow.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-            tableRow.setPadding(5, 5, 5, 5);
-            for (String rr : rowInput.getCells()) {
-                tableRow.addView(generateTextView(rr));
+        if (tableOutput != null) {
+            for (RowInput rowInput : tableOutput) {
+                TableRow tableRow = new TableRow(this.getContext());
+                tableRow.setDividerDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.table_divider, null));
+                tableRow.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+                tableRow.setPadding(5, 5, 5, 5);
+                for (String rr : rowInput.getCells()) {
+                    tableRow.addView(generateTextView(rr));
+                }
+                tableLayout.addView(tableRow);
             }
-            tableLayout.addView(tableRow);
         }
     }
 
@@ -202,7 +211,9 @@ public class TimetableFragment extends Fragment {
                 tableOutput.add(new RowInput(tds));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            tableLayout.setVisibility(View.GONE);
+            emptyTimetable.setVisibility(View.VISIBLE);
+            //e.printStackTrace();
         }
     }
 

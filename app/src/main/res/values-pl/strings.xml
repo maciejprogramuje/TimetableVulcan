@@ -10,5 +10,6 @@
     <string name="enter_link_to_school_timetable">Wpisz adres strony</string>
     <string name="connect">Połącz ze stroną!</string>
     <string name="login_text2">na przykład:</string>
+    <string name="error_timetable">Problem z wyświetleniem planu!</string>
 
 </resources>

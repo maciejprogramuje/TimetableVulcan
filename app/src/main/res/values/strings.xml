@@ -11,5 +11,9 @@
     <string name="loging_text3" translatable="false">http://lo01.pl/plan/\nhttp://zamoy.lublin.pl/plan/\nhttp://www.paderewski.lublin.pl/plany/lic/</string>
     <string name="enter_link_to_school_timetable">Enter link to school timetable</string>
     <string name="connect">Connect!</string>
+    <string name="error_timetable">Timetable show error!</string>
+
+    <string name="ad_unit_id_banner" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <!--<string name="ad_unit_id_app" translatable="false">ca-app-pub-9139309714448232~7948177322</string>-->
 
 </resources>
