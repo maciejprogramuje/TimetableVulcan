@@ -41,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        //todo - add
-        //Utils.initializeAd(this);
+        Utils.initializeAd(this);
 
         navigation = findViewById(R.id.navigation);
         removeShiftMode(navigation);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,10 +45,9 @@ public class Utils {
         adView.loadAd(adRequest);
     }
 
-    //todo - ad
-    /*public static void initializeAd(Context context) {
+    public static void initializeAd(Context context) {
         MobileAds.initialize(context, context.getResources().getString(R.string.ad_unit_id_app));
-    }*/
+    }
 
     public static void noInternetSnackbar(final View v) {
         showSnackbar(v, v.getResources().getString(R.string.turn_on_internet));

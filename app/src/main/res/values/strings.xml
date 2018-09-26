@@ -13,10 +13,10 @@
     <string name="connect">Connect!</string>
     <string name="error_timetable">Timetable show error!</string>
 
-    <string name="ad_unit_id_banner" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_unit_id_banner" translatable="false">ca-app-pub-9139309714448232/7040984790</string>
     <string name="turn_on_internet">Turn on internet!</string>
     <string name="bad_link">Bad link! Try again</string>
     <string name="no_data">No data!</string>
-    <!--<string name="ad_unit_id_app" translatable="false">ca-app-pub-9139309714448232~7948177322</string>-->
+    <string name="ad_unit_id_app" translatable="false">ca-app-pub-9139309714448232~6881202699</string>
 
 </resources>
