@@ -4,7 +4,12 @@
     <string name="classroom">Classroom</string>
     <string name="teacher">Teacher</string>
     <string name="favorite">Favorite</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
     <string name="change_school_link">Change link to timetable</string>
+    <string name="login_text1">Enter link to Your school timetables</string>
+    <string name="login_text2">for example:</string>
+    <string name="loging_text3" translatable="false">http://lo01.pl/plan/\nhttp://zamoy.lublin.pl/plan/\nhttp://www.paderewski.lublin.pl/plany/lic/</string>
+    <string name="enter_link_to_school_timetable">Enter link to school timetable</string>
+    <string name="connect">Connect!</string>
 
 </resources>

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -94,6 +93,8 @@ public class ChooseTimetableFragment extends Fragment {
                 app.setFavouriteTimetableTitle("");
                 app.setFavouriveTimetableLink("");
                 app.saveFavouriveTimetable("", "");
+                app.setBaseUrl("");
+                app.saveBaseUrl("");
                 startActivity(new Intent(getContext(), SchoolLinkActivity.class));
                 return true;
         }
@@ -128,7 +129,6 @@ public class ChooseTimetableFragment extends Fragment {
 
     public void fillLinksToTimetables() {
         String baseUrl = app.getBaseUrl();
-        Log.w("UWAGA", "baseUrl=" + baseUrl);
 
         Document document = null;
         try {

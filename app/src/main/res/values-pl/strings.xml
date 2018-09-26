@@ -6,5 +6,9 @@
     <string name="teacher">Nauczyciel</string>
     <string name="favorite">Ulubiony</string>
     <string name="change_school_link">Zmień link do planu lekcji</string>
+    <string name="login_text1">Wprowadź adres strony internetowej, na której znajduje się plan lekcji Twojej szkoły</string>
+    <string name="enter_link_to_school_timetable">Wpisz adres strony</string>
+    <string name="connect">Połącz ze stroną!</string>
+    <string name="login_text2">na przykład:</string>
 
 </resources>

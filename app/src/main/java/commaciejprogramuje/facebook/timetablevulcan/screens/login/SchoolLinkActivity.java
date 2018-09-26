@@ -3,6 +3,7 @@ package commaciejprogramuje.facebook.timetablevulcan.screens.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
 import butterknife.BindView;
@@ -15,7 +16,7 @@ import commaciejprogramuje.facebook.timetablevulcan.screens.MainActivity;
 public class SchoolLinkActivity extends Activity {
     @BindView(R.id.enter_link_edittext)
     EditText enterLinkEdittext;
-    private String favouriveTimetableLink;
+    private String baseUrl;
     private App app;
 
     @Override
@@ -25,24 +26,39 @@ public class SchoolLinkActivity extends Activity {
         ButterKnife.bind(this);
 
         app = (App) getApplication();
-        favouriveTimetableLink = app.getFavouriveTimetableLink();
+        baseUrl = app.getBaseUrl();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (favouriveTimetableLink != null && !favouriveTimetableLink.isEmpty()) {
+        if (baseUrl != null && !baseUrl.isEmpty()) {
             goToMainActivity();
         }
     }
 
     @OnClick(R.id.enter_link_button)
     public void onViewClicked() {
-        String schoolLink = enterLinkEdittext.getText().toString();
+        String schoolLink = formatLink(enterLinkEdittext.getText().toString());
+        Log.w("UWAGA", "schoolLink=" + schoolLink);
         app.setBaseUrl(schoolLink);
         app.saveBaseUrl(schoolLink);
         goToMainActivity();
+    }
+
+    private String formatLink(String s) {
+        if (!s.startsWith("http://www.")) {
+            s = "http://www." + s;
+        } else if (s.startsWith("www.")) {
+            s = "http://" + s;
+        }
+
+        if (!s.endsWith("/")) {
+            s = s + "/";
+        }
+
+        return s;
     }
 
     private void goToMainActivity() {
