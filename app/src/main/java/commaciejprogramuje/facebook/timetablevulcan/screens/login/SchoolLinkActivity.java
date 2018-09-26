@@ -3,11 +3,11 @@ package commaciejprogramuje.facebook.timetablevulcan.screens.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.EditText;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +31,9 @@ public class SchoolLinkActivity extends Activity {
 
         app = (App) getApplication();
         baseUrl = app.getBaseUrl();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     @Override

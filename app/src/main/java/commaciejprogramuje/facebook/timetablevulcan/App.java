@@ -2,7 +2,6 @@ package commaciejprogramuje.facebook.timetablevulcan;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.os.StrictMode;
 import android.view.Menu;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -27,9 +26,6 @@ public class App extends Application {
         baseUrl = sharedPreferences.getString(BASE_URL, "");
         favouriveTimetableLink = sharedPreferences.getString(FAVOURIVE_TIMETABLE_LINK, "");
         favouriteTimetableTitle = sharedPreferences.getString(FAVOURITE_TIMETABLE_TITLE, "");
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
     }
 
     public void saveFavouriveTimetable(String favouriveTimetableLink, String favouriteTimetableTitle) {
